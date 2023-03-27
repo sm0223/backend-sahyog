@@ -5,7 +5,9 @@ import com.sahyog.backend.entities.CustomRequest;
 import com.sahyog.backend.entities.CustomResponse;
 import com.sahyog.backend.entities.Patient;
 import com.sahyog.backend.services.ABDMSession;
+import com.sahyog.backend.services.PatientService;
 import com.sahyog.backend.services.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
@@ -86,6 +88,34 @@ public class MyController {
 
 
     }
+
+//    @PostMapping(value = "/api/register/save")
+//    public String SavePatient(@RequestBody Patient patient)
+//    {
+//        System.out.println(patient.toString());
+//        PatientService patientService = new PatientService();
+//            int res = patientService.savePatient(patient);
+//        return ""+res;
+//    }
+
+        @Autowired
+        private PatientService service;
+
+    @PostMapping("/api/register/save")
+    public Patient SavePatient(@RequestBody Patient patient)
+    {
+        System.out.println("Patient : "+patient.toString());
+        return service.savePatient(patient);
+    }
+
+    @GetMapping("/api/register/details")
+    public List<Patient> getAllPatients()
+    {
+        return service.findDetails();
+    }
+
+
+
 
 
 }

@@ -49,6 +49,7 @@ public class ABDMSession {
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());
         this.token = new Util().getValueFromJsonString("accessToken", response.body());
+//        System.out.println("Requestbody="+response.body());
         return requestBody;
     }
 
@@ -63,7 +64,6 @@ public class ABDMSession {
                 .header("X-CM-ID", "sbx")
                 .header("Authorization", "Bearer "+token)
                 .build();
-
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());
         return response.statusCode();

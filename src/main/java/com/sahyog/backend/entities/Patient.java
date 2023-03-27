@@ -1,22 +1,35 @@
 package com.sahyog.backend.entities;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 
+
+@Entity
 public class Patient{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     public String healthId;
     public String healthIdNumber;
     public String name;
     public String gender;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "id")
     public Address address;
     public int yearOfBirth;
     public int dayOfBirth;
     public int monthOfBirth;
-    public ArrayList<Identifier> identifiers;
-
+    public String healthNumber;
+    public String mobile;
     public Patient() {
     }
 
-    public Patient(String healthId, String healthIdNumber, String name, String gender, Address address, int yearOfBirth, int dayOfBirth, int monthOfBirth, ArrayList<Identifier> identifiers) {
+    public Patient(int id, String healthId, String healthIdNumber, String name, String gender, Address address, int yearOfBirth, int dayOfBirth, int monthOfBirth, String healthNumber, String mobile) {
+        this.id = id;
         this.healthId = healthId;
         this.healthIdNumber = healthIdNumber;
         this.name = name;
@@ -25,11 +38,16 @@ public class Patient{
         this.yearOfBirth = yearOfBirth;
         this.dayOfBirth = dayOfBirth;
         this.monthOfBirth = monthOfBirth;
-        this.identifiers = identifiers;
+        this.healthNumber = healthNumber;
+        this.mobile = mobile;
     }
 
-    public Patient(String healthId) {
-        this.healthId = healthId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getHealthId() {
@@ -96,12 +114,37 @@ public class Patient{
         this.monthOfBirth = monthOfBirth;
     }
 
-    public ArrayList<Identifier> getIdentifiers() {
-        return identifiers;
+    public String getHealthNumber() {
+        return healthNumber;
     }
 
-    public void setIdentifiers(ArrayList<Identifier> identifiers) {
-        this.identifiers = identifiers;
+    public void setHealthNumber(String healthNumber) {
+        this.healthNumber = healthNumber;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", healthId='" + healthId + '\'' +
+                ", healthIdNumber='" + healthIdNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address=" + address +
+                ", yearOfBirth=" + yearOfBirth +
+                ", dayOfBirth=" + dayOfBirth +
+                ", monthOfBirth=" + monthOfBirth +
+                ", healthNumber='" + healthNumber + '\'' +
+                ", mobile='" + mobile + '\'' +
+                '}';
     }
 }
 
