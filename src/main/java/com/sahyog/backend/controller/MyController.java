@@ -3,10 +3,9 @@ package com.sahyog.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sahyog.backend.entities.CustomRequest;
 import com.sahyog.backend.entities.CustomResponse;
+import com.sahyog.backend.entities.Doctor;
 import com.sahyog.backend.entities.Patient;
-import com.sahyog.backend.services.ABDMSession;
-import com.sahyog.backend.services.PatientService;
-import com.sahyog.backend.services.Util;
+import com.sahyog.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -98,24 +97,50 @@ public class MyController {
 //        return ""+res;
 //    }
 
+    //---------Patient Services------------
         @Autowired
-        private PatientService service;
+        private PatientService patientService;
 
     @PostMapping("/api/register/save")
     public Patient SavePatient(@RequestBody Patient patient)
     {
         System.out.println("Patient : "+patient.toString());
-        return service.savePatient(patient);
+        return patientService.savePatient(patient);
     }
 
     @GetMapping("/api/register/details")
     public List<Patient> getAllPatients()
     {
-        return service.findDetails();
+        return patientService.findDetails();
     }
 
+    //---------Admin Doctor services-------------
+    @Autowired
+    private AdminService adminDoctorService;
 
+    @PostMapping("/api/admin/addDoctor")
+    public Doctor saveDoctor(@RequestBody Doctor doctor)
+    {
+        return adminDoctorService.addDoctor(doctor);
+    }
 
+    @GetMapping("/api/admin/getAllDoctors")
+    public List<Doctor> getAllDoctors()
+    {
+        return adminDoctorService.findDoctors();
+    }
+
+    @DeleteMapping("/api/admin/deleteDoctor/{healthIdNumber}")
+    public String deleteDoctor(@PathVariable String healthIdNumber)
+    {
+        return adminDoctorService.deleteDoctor(healthIdNumber);
+    }
+
+    @PutMapping("/api/admin/update")
+    public Doctor updateDoctor(@RequestBody Doctor doctor)
+    {
+        return adminDoctorService.updateDoctor(doctor);
+    }
 
 
 }
