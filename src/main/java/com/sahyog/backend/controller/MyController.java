@@ -1,10 +1,7 @@
 package com.sahyog.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sahyog.backend.entities.CustomRequest;
-import com.sahyog.backend.entities.CustomResponse;
-import com.sahyog.backend.entities.Doctor;
-import com.sahyog.backend.entities.Patient;
+import com.sahyog.backend.entities.*;
 import com.sahyog.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -143,4 +140,31 @@ public class MyController {
     }
 
 
+    //---------Admin Staff services------------------
+    @Autowired
+    private AdminService adminStaffService;
+    @PostMapping("/api/admin/addStaff")
+    public Staff saveStaff(@RequestBody Staff staff){ return adminStaffService.addStaff(staff);}
+
+    @GetMapping("/api/admin/getAllStaffs")
+    public List<Staff> getAllStaffs()
+    {
+        return adminStaffService.findStaffs();
+    }
+
+    @DeleteMapping("/api/admin/deleteStaff/{healthIdNumber}")
+    public String deleteStaff(@PathVariable String healthIdNumber)
+    {
+        return adminStaffService.deleteStaff(healthIdNumber);
+    }
+
+    @PutMapping("/api/admin/update")
+    public Staff updateStaff(@RequestBody Staff staff)
+    {
+        return adminStaffService.updateStaff(staff);
+    }
+
+
+
 }
+
