@@ -24,10 +24,13 @@ public class AdminService {
         return doctorRepository.findAll();
     }
 
-    public String deleteDoctor(String healthIdNumber)
+    public Doctor findDoctorByHealthId(String healthIdNumber) { return doctorRepository.findByHealthIdNumber(healthIdNumber);}
+
+//    public Doctor findDoctorById(int id) { return doctorRepository.findById(id).orElse(null);}
+    public String deleteDoctor(int id)
     {
-        doctorRepository.deleteByHealthIdNumber(healthIdNumber);
-        return "doctor deleted !! " + healthIdNumber;
+        doctorRepository.deleteById(id);
+        return "doctor deleted !! " + id;
     }
 
     public Doctor updateDoctor(Doctor doctor){

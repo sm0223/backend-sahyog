@@ -25,6 +25,7 @@ public class Doctor {
     public String mobile;
 
     @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "id")
     public Users users;
 
     public Doctor(int id, String healthId, String healthIdNumber, String registrationNumber, String name, String gender, Address address, int yearOfBirth, int dayOfBirth, int monthOfBirth, String mobile, Users users) {
