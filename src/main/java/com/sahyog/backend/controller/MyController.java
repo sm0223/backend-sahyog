@@ -195,4 +195,31 @@ public class MyController {
     }
 
 
+    //---------Admin Staff services------------------
+    @Autowired
+    private AdminService adminStaffService;
+    @PostMapping("/api/admin/addStaff")
+    public Staff saveStaff(@RequestBody Staff staff){ return adminStaffService.addStaff(staff);}
+
+    @GetMapping("/api/admin/getAllStaffs")
+    public List<Staff> getAllStaffs()
+    {
+        return adminStaffService.findStaffs();
+    }
+
+    @DeleteMapping("/api/admin/deleteStaff/{healthIdNumber}")
+    public String deleteStaff(@PathVariable String healthIdNumber)
+    {
+        return adminStaffService.deleteStaff(healthIdNumber);
+    }
+
+    @PutMapping("/api/admin/update")
+    public Staff updateStaff(@RequestBody Staff staff)
+    {
+        return adminStaffService.updateStaff(staff);
+    }
+
+
+
 }
+
