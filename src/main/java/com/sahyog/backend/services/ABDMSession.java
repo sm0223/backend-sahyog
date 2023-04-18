@@ -90,7 +90,7 @@ public class ABDMSession {
         String requestBody =  "{\n    \"requestId\": \""+ UUID.randomUUID()+"\",\n    \"timestamp\": \""+ Instant.now()+"\",\n  \"link\": {\n" +
                 "        \"accessToken\": \""+accessToken+"\",\n" +
                 "        \"patient\": {\n" +
-                "            \"referenceNumber\": \"P-ID-001\",\n" +
+                "            \"referenceNumber\": \"\",\n" +
                 "            \"display\": \"hardeep\",\n" +
                 "            \"careContexts\": [\n" +
                 "                {\n" +

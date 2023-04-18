@@ -50,6 +50,7 @@ public class MyController {
         String keyPath2 = "\"error\"";
         String patient = util.getValueFromString2(keyPath1,keyPath2, response);
         asyncCustomResponse.setPatient(patient);
+        asyncCustomResponse.setAccessToken(accessToken);
 
         SseEmitter sseEmitter = emitters.get(requestId);
         sseEmitter.send(SseEmitter.event().name("ABDM-EVENT").data(asyncCustomResponse));
@@ -97,25 +98,16 @@ public class MyController {
 
     }
 
-    @GetMapping(value = "/api/link/care-context")
-    public SseEmitter linkingCareContext() throws Exception {
+    @PostMapping(value = "/api/link/care-context")
+    public int linkingCareContext() throws Exception {
         System.out.println("REQUEST: LINKING_CARE_CONTEXT");
         ABDMSession session = new ABDMSession();
         session.setToken();
 
         int statusCode = session.careContextLinking(accessToken);
         String UUIDCode = UUID.randomUUID().toString();
-        SseEmitter sseEmitter = new SseEmitter((long)1000);
-
-        sseEmitter.onCompletion(()->emitters.remove(sseEmitter));
-        emitters.put(UUIDCode, sseEmitter);
-        sseEmitter.onCompletion(()->emitters.remove(sseEmitter));
-        sseEmitter.onTimeout(()->emitters.remove(sseEmitter));
-        sseEmitter.onError((e)->emitters.remove(sseEmitter));
-
         System.out.println("STATUS: LINKING_CARE_CONTEXT: " + statusCode);
-
-        return sseEmitter;
+        return statusCode;
     }
 
 
